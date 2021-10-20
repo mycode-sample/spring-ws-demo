@@ -3,26 +3,33 @@
                   xmlns:schema="http://mycompany.com/hr/schemas"
                   xmlns:tns="http://mycompany.com/hr/definitions"
                   targetNamespace="http://mycompany.com/hr/definitions">
+  <!-- 导入约束文件 -->
   <wsdl:types>
     <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <xsd:import namespace="http://mycompany.com/hr/schemas" schemaLocation="../xmlfiles/hr.xsd"/>
+        <xsd:import namespace="http://mycompany.com/hr/schemas"
+                    schemaLocation="../xmlfiles/hr.xsd"/>
     </xsd:schema>
   </wsdl:types>
 
+  <!-- 指定消息内容 -->
   <wsdl:message name="HolidayRequest">
-    <wsdl:part element="schema:HolidayRequest" name="HolidayRequest"/>
+    <wsdl:part name="HolidayRequest" element="HolidayRequest"/>
   </wsdl:message>
 
+  <!-- 指定操作内容，即输入输出 -->
   <wsdl:portType name="HumanResource">
     <wsdl:operation name="Holiday">
-      <wsdl:input message="tns:HolidayRequest" name="HolidayRequest"/>
+      <wsdl:input message="HolidayRequest" name="HolidayRequest"/>
     </wsdl:operation>
   </wsdl:portType>
 
-  <wsdl:binding name="HumanResourceBinding" type="tns:HumanResource">
-    <soap:binding style="document"
-                  transport="http://schemas.xmlsoap.org/soap/http"/>
+  <!-- binding指定了传输协议以及传输内容以及操作 -->
+  <wsdl:binding name="HumanResourceBinding" type="HumanResource">
+    <!-- 传输协议和传输内容 -->
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <!-- operation元素指定了要调用的操作以及如何调用 -->
     <wsdl:operation name="Holiday">
+      <!-- 通过soapAction指定的链接调用操作 -->
       <soap:operation soapAction="http://mycompany.com/RequestHoliday"/>
       <wsdl:input name="HolidayRequest">
         <soap:body use="literal"/>
@@ -30,9 +37,12 @@
     </wsdl:operation>
   </wsdl:binding>
 
+  <!-- 描述在哪里可以找到定义的操作 -->
   <wsdl:service name="HumanResourceService">
-    <wsdl:port binding="tns:HumanResourceBinding" name="HumanResourcePort">
-      <soap:address location="http://localhost:8080/holidayService/"/>
+    <!-- binding属性引用了上面的binding -->
+    <wsdl:port name="HumanResourcePort" binding="tns:HumanResourceBinding">
+      <!-- location属性定义了操作所在的位置，可以看到值是一个可用的url连接 -->
+      <soap:address location="http://localhost:8000/holidayService"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

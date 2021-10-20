@@ -7,7 +7,7 @@
   <wsdl:types>
     <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
         <xsd:import namespace="http://mycompany.com/hr/schemas"
-                    schemaLocation="../xmlfiles/hr.xsd"/>
+                    schemaLocation="hr.xsd"/>
     </xsd:schema>
   </wsdl:types>
 
@@ -16,15 +16,15 @@
     <wsdl:part name="HolidayRequest" element="HolidayRequest"/>
   </wsdl:message>
 
-  <!-- 指定操作内容，即输入输出 -->
-  <wsdl:portType name="HumanResource">
+  <!-- 指定操作内容，即输入输出，name属性是操作所在的接口。 -->
+  <wsdl:portType name="HumanResourceService">
     <wsdl:operation name="Holiday">
       <wsdl:input message="HolidayRequest" name="HolidayRequest"/>
     </wsdl:operation>
   </wsdl:portType>
 
   <!-- binding指定了传输协议以及传输内容以及操作 -->
-  <wsdl:binding name="HumanResourceBinding" type="HumanResource">
+  <wsdl:binding name="HumanResourceBinding" type="HumanResourceService">
     <!-- 传输协议和传输内容 -->
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
     <!-- operation元素指定了要调用的操作以及如何调用 -->
@@ -42,7 +42,7 @@
     <!-- binding属性引用了上面的binding -->
     <wsdl:port name="HumanResourcePort" binding="tns:HumanResourceBinding">
       <!-- location属性定义了操作所在的位置，可以看到值是一个可用的url连接 -->
-      <soap:address location="http://localhost:8000/holidayService"/>
+      <soap:address location="http://localhost:8080/holidayService"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

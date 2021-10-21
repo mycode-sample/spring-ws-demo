@@ -11,14 +11,15 @@
     </xsd:schema>
   </wsdl:types>
 
-  <!-- 指定消息内容 -->
+  <!-- 指定xml消息内容和类型 -->
   <wsdl:message name="HolidayRequest">
     <wsdl:part name="HolidayRequest" element="HolidayRequest"/>
   </wsdl:message>
 
-  <!-- 指定操作内容，即输入输出，name属性是操作所在的接口。 -->
+  <!-- 指定完成操作的接口以及输入输出，name属性是操作所在的接口。 -->
   <wsdl:portType name="HumanResourceService">
     <wsdl:operation name="Holiday">
+      <!-- message是输入类型，name是输入参数名称 -->
       <wsdl:input message="HolidayRequest" name="HolidayRequest"/>
     </wsdl:operation>
   </wsdl:portType>

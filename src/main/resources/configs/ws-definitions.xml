@@ -7,7 +7,7 @@
   <wsdl:types>
     <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
         <xsd:import namespace="http://mycompany.com/hr/schemas"
-                    schemaLocation="hr.xsd"/>
+                    schemaLocation="xmlfiles/hr.xsd"/>
     </xsd:schema>
   </wsdl:types>
 

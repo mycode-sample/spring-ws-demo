@@ -12,7 +12,12 @@
   <context:component-scan base-package="com.mycompany.hr.ws"/>
   <sws:annotation-driven/>
 
+  <!-- id指定了wsdl的名称，即holiday.wsdl -->
+  <!-- locationUri指定了如何访问holiday.wsdl，它前面通常会加上上下文根目录： -->
+  <!-- 通常访问形式是:http://localhost:8080/contextroot/holidayService/holiday.wsdl -->
+  <!-- 还可以通过targetNamespace来配置命名空间，如果没有配置，则使用和xsd相同的命名空间 -->
   <sws:dynamic-wsdl id="holiday" portTypeName="HumanResource" locationUri="holidayService">
-    <sws:xsd location="/WEB-INF/hr.xsd"/>
+    <!-- 设置约束文件位置。约束文件用来生成对应的wsdl -->
+    <sws:xsd location="classpath:configs/xmlfiles/hr.xsd"/>
   </sws:dynamic-wsdl>
 </beans>
